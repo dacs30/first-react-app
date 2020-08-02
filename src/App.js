@@ -1,28 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
+import CardList from './CardList';
+import {robots} from './robots';
+import SearchBox from './SearchBox';
 import './App.css';
 
+// using state because of the search bar
 class App extends React.Component {
-  render(){
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    )
-  }
-}
+    constructor() { // search here
+        super(); // calling the super
+        this.state = { // this is what can change and affect the app
+            robots: robots,
+            searchfield: ''
+        }
+    }
+
+    onSearchChange = (event) =>{
+        this.setState({searchfield: event.target.value})
+    }
+
+    render() {
+        const filterRobots = this.state.robots.filter(robots => { // filtering the array
+            return robots.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
+        });
+        return (
+            <div className='tc'>
+                <h1 className='f2'>Robofriends</h1>
+                <SearchBox searchChange={this.onSearchChange} />
+                <CardList robots={filterRobots}/>
+            </div>
+        )
+    }
+};
 
 export default App;
