@@ -5,9 +5,9 @@ import Card from './Card';
 const CardList = ({robots}) => {
     return (
     <div>
-      {     
-          robots.map((user, i) => { // list cards
-            return (<Card key={i} id={robots[i].id} name={robots[i].name} email={robots[i].email}/>);
+      {
+          robots.map((user) => { // list cards
+            return (<Card key={user.id} id={user.id} name={user.name} email={user.email}/>);
           })
       }
     </div>
